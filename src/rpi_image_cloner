@@ -43,10 +43,8 @@ fi
 echo $log_i"cloning sd card"
 sudo dd if=$sd_card_path of=$temp_image_name
 
-chmod +x ../external_script/pishrink.sh
-
 echo $log_i"shrinking image"
-sudo ../external_script/pishrink.sh /tmp/running_os_image_clone.img $clone_image_name
+sudo /usr/local/bin/pishrink.sh /tmp/running_os_image_clone.img $clone_image_name
 
 echo $log_i"clearing temp files"
 rm -rf $temp_image_name
