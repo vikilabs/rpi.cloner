@@ -3,10 +3,10 @@ clone_image_name=$2
 
 temp_image_name="./tmp_os_image_clone.img"
 
-log_s="[ success  ] "
-log_i="[ status   ] "
-log_e="[ error    ] "
-log_f="[ failure  ] "
+log_s="[ success..] "
+log_i="[ status...] "
+log_e="[ error....] "
+log_f="[ failure..] "
 echo 
 
 if [ "$#" -lt 2 ]; then
@@ -15,9 +15,16 @@ if [ "$#" -lt 2 ]; then
     echo "     rpi_clone <sd_card: device_name> <new_image_name>.img"
     echo
     echo
-    echo " Example: "
+    echo " Example 1: "
     echo
     echo "     rpi_clone /dev/sdb new_image.img"
+    echo
+    echo
+    echo " Example 2: "
+    echo
+    echo "     rpi_clone <sd_card: device_name> <new_image_name>.img <temp_file_path>"
+    echo
+    echo "     rpi_clone /dev/sdb new_image.img /tmp"
     echo
     echo
     echo " Additional Note: "
@@ -27,6 +34,15 @@ if [ "$#" -lt 2 ]; then
     echo
     exit 1
 fi
+
+if [ -z $3 ]; then
+    #3rd argument is empty
+    temp_image_name="./tmp_os_image_clone.img"
+else
+    temp_image_name=$3"/tmp_os_image_clone.img"
+fi
+
+echo $log_i"temp_file : ( " $temp_image_name " )"
 
 which gparted  >> /dev/null
 
