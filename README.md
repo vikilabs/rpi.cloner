@@ -26,6 +26,10 @@ Pretested image can be cloned and shared. This way we can run same pretested ima
     $rpi_clone /dev/sdb rpi_image.img
 
 
+##### System Requirement 
+    
+    Any flavour of ubuntu
+
 ##### REFERENCE 
 
 I am using PiShrink script as part of this utility. Thanks to Drewsif.
