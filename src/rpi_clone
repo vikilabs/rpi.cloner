@@ -9,6 +9,8 @@ log_e="[ error....] "
 log_f="[ failure..] "
 echo 
 
+sudo ls > /dev/null
+
 if [ "$#" -lt 2 ]; then
     echo " COMMAND USAGE : "
     echo
