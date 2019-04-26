@@ -1,14 +1,14 @@
-#### UTILITY TO CLONE RASPBERRY PI SD CARD
+## UTILITY TO CLONE RASPBERRY PI SD CARD
 
 
 ##### WHY IS IT REQUIRED TO CLONE SD CARD
 
-    Pretested image can be cloned and shared. This way we can run same pretested image on multiple Raspberry Pi devices.
+Pretested image can be cloned and shared. This way we can run same pretested image on multiple Raspberry Pi devices.
 
 ##### INSTALLATION STEP
 
-    1. git clone https://github.com/vikilabs/rpi_clonner.git
-    2. cd rpi_clonner
+    1. git clone https://github.com/vikilabs/rpi_cloner.git
+    2. cd rpi_cloner
     3. ./install.sh
 
 
