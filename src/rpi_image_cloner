@@ -1,0 +1,56 @@
+sd_card_path=$1
+clone_image_name=$2
+
+temp_image_name="/tmp/running_os_image_clone.img"
+
+log_s="[ success  ] "
+log_i="[ status   ] "
+log_e="[ error    ] "
+log_f="[ failure  ] "
+echo 
+
+if [ "$#" -lt 2 ]; then
+    echo " COMMAND USAGE : "
+    echo
+    echo "     rpi_clone <sd_card: device_name> <new_image_name>.img"
+    echo
+    echo
+    echo " Example: "
+    echo
+    echo "     rpi_clone /dev/sdb new_image.img"
+    echo
+    echo
+    echo " Additional Note: "
+    echo
+    echo "     sudo fdisk -l : List all mounted disks in the system"
+    echo
+    echo
+    exit 1
+fi
+
+which gparted  >> /dev/null
+
+if [[ $? -eq 0 ]]; then
+    echo $log_s"gparted check"
+else
+    echo $log_f"gparted not installed"
+    echo $log_f"installing gparted"
+    sudo apt-get install gparted
+fi
+
+#sudo fdisk -l | grep ^"/dev" | awk '{print $1, "[", $5, "]"}'
+
+echo $log_i"cloning sd card"
+sudo dd if=$sd_card_path of=$temp_image_name
+
+chmod +x ../external_script/pishrink.sh
+
+echo $log_i"shrinking image"
+sudo ../external_script/pishrink.sh /tmp/running_os_image_clone.img $clone_image_name
+
+echo $log_i"clearing temp files"
+rm -rf $temp_image_name
+
+echo $log_s"image successfully created ( "$clone_image_name" )"
+echo $log_s"sd card cloned successfully!"
+
