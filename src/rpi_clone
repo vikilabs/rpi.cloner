@@ -1,7 +1,7 @@
 sd_card_path=$1
 clone_image_name=$2
 
-temp_image_name="/tmp/running_os_image_clone.img"
+temp_image_name="./tmp_os_image_clone.img"
 
 log_s="[ success  ] "
 log_i="[ status   ] "
@@ -43,8 +43,19 @@ fi
 echo $log_i"cloning sd card"
 sudo dd if=$sd_card_path of=$temp_image_name
 
+if [ $? -ne 0 ]; then
+    echo $log_e"disk clone failed"
+    exit 1
+fi
+
+
 echo $log_i"shrinking image"
-sudo /usr/local/bin/pishrink.sh /tmp/running_os_image_clone.img $clone_image_name
+sudo /usr/local/bin/pishrink.sh $temp_image_name $clone_image_name
+
+if [ $? -ne 0 ]; then
+    echo $log_e"image shrink failed"
+    exit 1
+fi
 
 echo $log_i"clearing temp files"
 rm -rf $temp_image_name
